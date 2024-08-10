@@ -85,8 +85,8 @@ def disableInSecureMode(decoratedCls):
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def __init__(self, *args, **kwargs):
 		super(GlobalPlugin, self).__init__()
-		self.check= False
 		self.switch= False
+		self.check= False
 		self.percent= 0
 		self.binFilesVerify()
 
@@ -96,7 +96,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		script= globalPluginHandler.GlobalPlugin.getScript(self, gesture)
 		if not script:
 			self.finish(True)
-			return
 		return globalPluginHandler.GlobalPlugin.getScript(self, gesture)
 
 	def finish(self, sound= True):
@@ -107,7 +106,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.clearGestureBindings()
 
 	def binFilesVerify(self):
-		self.finish()
 		if os.path.isdir(os.path.join(MAIN_PATH, 'bin')):
 			self.check= True
 			return
@@ -161,7 +159,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def binFilesVerifyDecorator(fn):
 		def wrapper(self, gesture):
-			self.finish(False)
+			self.finish(True)
 			if not self.check:
 				self.binFilesVerify()
 				return
@@ -179,6 +177,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		playWaveFile(os.path.join(MAIN_PATH, 'sounds', 'in.wav'))
 		message(_('Comandos activados'))
 
+	@binFilesVerifyDecorator
 	def script_fileModify(self, gesture):
 		file_path= getFilePath()
 		if file_path:
@@ -251,6 +250,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		description= _('Activa la previsualización del archivo de audio o video con el foco')
 	)
 	def script_preview(self, gesture):
+		self.finish(False)
+		if not self.check:
+			self.binFilesVerify()
+			return
 		file_path= getFilePath()
 		if file_path:
 			command= f'"{PLAY_PATH}" -i "{file_path}" -window_title "{os.path.splitext(os.path.split(file_path)[1])[0]}"'
