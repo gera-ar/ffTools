@@ -29,9 +29,9 @@ addon_info = {
 	# Author(s)
 	"addon_author": "Gerardo Kessler [gera.ar@yahoo.com]",
 	# URL for the add-on documentation support
-	"addon_url": "https://github.com/GerardKessler/ffTools",
+	"addon_url": "https://github.com/gera-ar/ffTools",
 	# URL for the add-on repository where the source code can be found
-	"addon_sourceURL": "https://github.com/GerardKessler/ffTools",
+	"addon_sourceURL": "https://github.com/gera-ar/ffTools",
 	# Documentation file name
 	"addon_docFileName": "readme.html",
 	# Minimum NVDA version supported (e.g. "2018.3.0", minor version is optional)
