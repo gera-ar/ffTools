@@ -56,7 +56,7 @@ def getFilePath():
 		docPath= '\"' + desktop_path + '\\' + api.getDesktopObject().objectWithFocus().name + '\"'
 		return None
 	targetFile= focusedItem.path
-	if os.path.splitext(targetFile)[1] in FORMAT_LIST:
+	if os.path.splitext(targetFile)[1].lower() in FORMAT_LIST:
 		return targetFile
 	else:
 		message('Archivo no soportado')
